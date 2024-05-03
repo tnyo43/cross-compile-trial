@@ -92,9 +92,6 @@ jobs:
     steps:
       - uses: actions/download-artifact@v1
         with:
-          name: draft-release
-      - uses: actions/download-artifact@v1
-        with:
           name: build-${{ matrix.target }}
           path: build/
       - name: zip the artifact
