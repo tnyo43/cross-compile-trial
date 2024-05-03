@@ -72,7 +72,7 @@ jobs:
             -d "{ \"tag_name\": \"${{ github.ref }}\", \"target_commitish\": \"main\", \"name\": \"${{ github.ref }}\", \"body\": \"## Changelog\n- [ ]\", \"draft\":true }" \
             https://api.github.com/repos/${{ github.repository }}/releases\
           )
-          release_upload_url=$(result | jq -r .upload_url)
+          release_upload_url=$(echo $result | jq -r .upload_url)
           echo "RELEASE_UPLOAD_URL=$release_upload_url"
           echo "RELEASE_UPLOAD_URL=$release_upload_url" >> $GITHUB_OUTPUT
   attach-assets-to-release:
