@@ -61,12 +61,12 @@ jobs:
           curl -X DELETE -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/$GITHUB_REPOSITORY/releases/{}
       - name: Create a draft release
         uses: actions/create-release@v1
-        id: createDraftRelease
+        id: create_draft_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: |
             ## Changelog
             - [ ]
@@ -74,7 +74,7 @@ jobs:
           prerelease: false
       - name: Save upload url of this draft release.
         run: |
-          echo '${{ steps.createDraftRelease.outputs.upload_url }}' > release_upload_url.txt
+          echo '${{ steps.create_draft_release.outputs.upload_url }}' > release_upload_url.txt
       - name: Upload `release_upload_url.txt`
         uses: actions/upload-artifact@v1
         env:
