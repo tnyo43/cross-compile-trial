@@ -3,7 +3,7 @@ const path = require("node:path");
 const https = require("follow-redirects/https");
 const { exit } = require("node:process");
 
-const DISTRIBUTION_VERSION = require("./package.json").version;
+const DISTRIBUTION_VERSION = require("../package.json").version;
 const { platform, arch } = process;
 
 const BIN_NAME_OF_PLATFORM = {
