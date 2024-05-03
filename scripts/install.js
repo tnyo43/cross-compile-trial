@@ -32,13 +32,10 @@ async function downloadAssetUrl() {
   return asset.url;
 }
 
-async function downloadBinary() {
-  const urlBase = await downloadAssetUrl();
+async function downloadBinary(urlBase, filePath) {
   const url = new URL(urlBase);
   const hostname = url.hostname;
   const path = url.pathname;
-
-  const filePath = "bin/main";
 
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(filePath);
@@ -82,4 +79,11 @@ async function downloadBinary() {
   });
 }
 
-downloadBinary();
+async function main() {
+  const filePath = "bin/main";
+  const urlBase = await downloadAssetUrl();
+  await downloadBinary(urlBase, filePath);
+  fs.chmodSync(filePath, "755");
+}
+
+main();
