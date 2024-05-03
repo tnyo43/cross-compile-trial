@@ -92,13 +92,11 @@ jobs:
         with:
           name: build-${{ matrix.target }}
           path: build/
-      - name: zip the artifact
-        run: zip -j build/main.zip build/main
       - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.draft-release.outputs.release-upload-url }}
-          asset_path: ./build/main.zip
-          asset_name: main-${{ matrix.target }}.zip
-          asset_content_type: application/zip
+          asset_path: ./build/main
+          asset_name: main-${{ matrix.target }}
+          asset_content_type: binary/octet-stream
