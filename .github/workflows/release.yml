@@ -1,7 +1,8 @@
 name: Build
 on:
   push:
-    branches: [main]
+    tags:
+      - "v*"
 
 jobs:
   build:
@@ -30,16 +31,10 @@ jobs:
       - uses: Swatinem/rust-cache@v1
       - name: Build release version
         run: cargo build --verbose --release --target=${{ matrix.target }}
-      - name: Export properties
-        id: properties
-        shell: bash
-        run: |
-          VERSION="$(cargo run --bin version)"
-          echo "::set-output name=version::$VERSION"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: build-${{ matrix.target }}-${{steps.properties.outputs.version}}
+          name: build-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/main
 
   draft-release:
@@ -66,8 +61,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ needs.build.outputs.version }}
-          release_name: ${{ needs.build.outputs.version }}
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
           body: |
             ## Changelog
             - [ ]
@@ -106,7 +101,7 @@ jobs:
           echo "::set-output name=url::$(cat draft-release/release_upload_url.txt)"
       - uses: actions/download-artifact@v1
         with:
-          name: build-${{ matrix.target }}-${{ needs.build.outputs.version }}
+          name: build-${{ matrix.target }}
           path: build/
       - name: zip the artifact
         run: zip -j build/main.zip build/main
@@ -116,5 +111,5 @@ jobs:
         with:
           upload_url: ${{ steps.upload-url.outputs.url }}
           asset_path: ./build/main.zip
-          asset_name: main-${{ matrix.target }}-${{ needs.build.outputs.version }}.zip
+          asset_name: main-${{ matrix.target }}.zip
           asset_content_type: application/zip
