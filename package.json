@@ -6,6 +6,9 @@
   "scripts": {
     "postinstall": "node scripts/postinstall.js"
   },
+  "bin": {
+    "cross-compile-trial": "./bin/main.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
