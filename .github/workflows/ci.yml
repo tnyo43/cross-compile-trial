@@ -1,0 +1,14 @@
+name: CI
+
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+      - run: pnpm install
+      - name: Build
+        run: pnpm --filter cross-compile-trial-test run trial
