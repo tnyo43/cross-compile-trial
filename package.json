@@ -13,5 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "follow-redirects": "^1.15.6"
+  },
+  "packageManager": "pnpm@9.0.6",
+  "engines": {
+    "pnpm": "9.0.6"
   }
 }
