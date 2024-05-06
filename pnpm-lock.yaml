@@ -4,10 +4,19 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  follow-redirects:
-    specifier: ^1.15.6
-    version: 1.15.6
+importers:
+
+  .:
+    dependencies:
+      follow-redirects:
+        specifier: ^1.15.6
+        version: 1.15.6
+
+  examples/test:
+    devDependencies:
+      cross-compile-trial:
+        specifier: '*'
+        version: link:../..
 
 packages:
 

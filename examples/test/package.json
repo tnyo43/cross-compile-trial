@@ -1,0 +1,9 @@
+{
+  "name": "cross-compile-trial-test",
+  "scripts": {
+    "trial": "cross-compile-trial"
+  },
+  "devDependencies": {
+    "cross-compile-trial": "*"
+  }
+}
