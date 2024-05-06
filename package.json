@@ -1,6 +1,6 @@
 {
   "name": "cross-compile-trial",
-  "version": "0.0.10",
+  "version": "0.0.13",
   "description": "",
   "main": "index.js",
   "scripts": {
