@@ -21,7 +21,25 @@ const BIN_NAME_OF_PLATFORM = {
   },
 };
 
-const binName = BIN_NAME_OF_PLATFORM[platform]?.[arch];
+function isMusl() {
+  let stderr;
+  try {
+    stderr = execSync("ldd --version", {
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+  } catch (err) {
+    stderr = err.stderr;
+  }
+  if (stderr.indexOf("musl") > -1) {
+    return true;
+  }
+  return false;
+}
+
+const binName =
+  platform === "linux" && isMusl()
+    ? BIN_NAME_OF_PLATFORM["linux-musl"]?.[arch]
+    : BIN_NAME_OF_PLATFORM[platform]?.[arch];
 
 if (!binName) {
   console.warn(
