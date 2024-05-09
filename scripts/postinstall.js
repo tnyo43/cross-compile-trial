@@ -15,6 +15,10 @@ const BIN_NAME_OF_PLATFORM = {
     x64: "main-x86_64-unknown-linux-gnu",
     arm64: "main-aarch64-unknown-linux-gnu",
   },
+  "linux-musl": {
+    x64: "main-x86_64-unknown-linux-musl",
+    arm64: "main-aarch64-unknown-linux-musl",
+  },
 };
 
 const binName = BIN_NAME_OF_PLATFORM[platform]?.[arch];
