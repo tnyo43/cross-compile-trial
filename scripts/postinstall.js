@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const https = require("follow-redirects/https");
 const { exit } = require("node:process");
+const { execSync } = require("node:child_process");
 
 const DISTRIBUTION_VERSION = require("../package.json").version;
 const { platform, arch } = process;
@@ -30,7 +31,7 @@ function isMusl() {
   } catch (err) {
     stderr = err.stderr;
   }
-  if (stderr.indexOf("musl") > -1) {
+  if (stderr?.indexOf("musl") > -1) {
     return true;
   }
   return false;
